@@ -1,0 +1,71 @@
+apiVersion: sourceplane.io/v1
+kind: Component
+metadata:
+  name: frogs-worker
+  description: Cloudflare Worker for the Frog Delivery catalogue and orders API
+spec:
+  type: cloudflare-worker-turbo
+  lifecycle: production
+  owner: platform
+  docs:
+    overview: docs/overview.md
+    pages:
+      - { path: docs/architecture.md, role: architecture, title: Architecture }
+      - { path: docs/runbook.md, role: runbook, title: Runbook }
+  domain: starter-runtime
+  path: apps/frogs-worker
+  dependsOn:
+    - component: cloudflare-d1
+      mode: enforced
+      modeRules:
+        - mode: advisory
+          when:
+            triggerRef: github-pull-request
+  secretEnv:
+    WIRING_CLOUDFLARE_D1_STAGE: "secret://org_70aaaf45513e40588a6fe0ba318e6690/frog-delivery-bc3a1e/stage/WIRING_CLOUDFLARE_D1"
+    WIRING_CLOUDFLARE_D1_PROD: "secret://org_70aaaf45513e40588a6fe0ba318e6690/frog-delivery-bc3a1e/prod/WIRING_CLOUDFLARE_D1"
+  subscribe:
+    environments:
+      - name: dev
+        profile: verify
+      - name: stage
+        dependencyMode: advisory
+        profile: verify
+        profileRules:
+          - profile: deploy
+            when:
+              triggerRef: github-push-main
+      - name: prod
+        dependencyMode: advisory
+        profile: verify
+        profileRules:
+          - profile: deploy
+            when:
+              triggerRef: github-push-main
+  parameters:
+    nodeVersion: "22"
+    pnpmVersion: "10.12.1"
+    workspaceDir: ../..
+    appDir: .
+    orgName: sourceplane
+    owner: sourceplane
+    repo: frog-delivery-bc3a1e
+    turboFilter: "@saas/frogs-worker"
+    wranglerConfig: wrangler.jsonc
+    wranglerTemplate: wrangler.template.jsonc
+    wiringComponents: "cloudflare-d1"
+    wiringEnvs: "stage,prod"
+    wiringFixture: wiring.fixture.json
+    installCommand: pnpm install --frozen-lockfile
+    buildCommand: pnpm exec turbo run build --filter=@saas/frogs-worker
+    typecheckCommand: pnpm exec turbo run typecheck --filter=@saas/frogs-worker
+    dryRunCommand: pnpm exec wrangler deploy --dry-run --config wrangler.jsonc --env prod
+    deployCommand: pnpm exec wrangler deploy --config wrangler.jsonc --env prod
+    preDeployCommand: "echo 'No pre-deploy step configured.'"
+    migrationCommand: "echo 'No migrations configured.'"
+    smokeCommand: "echo 'No smoke test configured.'"
+  labels:
+    team: platform
+    layer: runtime
+    surface: frogs
+    runtime: cloudflare

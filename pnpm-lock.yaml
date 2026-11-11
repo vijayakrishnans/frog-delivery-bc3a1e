@@ -152,6 +152,31 @@ importers:
         specifier: ^4.14.4
         version: 4.150.0(@cloudflare/workers-types@4.20260702.1)
 
+  apps/frogs-worker:
+    dependencies:
+      '@saas/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@saas/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20250508.0
+        version: 4.20260702.1
+      '@saas/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@saas/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/tsconfig
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
+      wrangler:
+        specifier: ^4.14.4
+        version: 4.150.0(@cloudflare/workers-types@4.20260702.1)
+
   apps/identity-worker:
     dependencies:
       '@saas/contracts':

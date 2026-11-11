@@ -183,5 +183,14 @@ export const manifest: MigrationManifest = {
       description:
         "Connection pointer on the inbound-delivery inbox (nullable connection_id + partial index) — lets the per-connection delivery log scope precisely; attributed by the IG2 cron drain",
     },
+    {
+      id: "200_frogs_foundation",
+      context: "frogs",
+      path: "200_frogs_foundation/up.sql",
+      checksum:
+        "b43cf77c6e68a536a5e8a17639faf91d9233f011bbff9d90bd9aed1e641fd3c7",
+      description:
+        "Frog Delivery persistence foundation — frog catalogue and orders tables",
+    },
   ],
 };
