@@ -1,0 +1,18 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+spec:
+  goal: The approved plan, written down as its design: the doc set and a contract for every step.
+  affects:
+    - "specs/epics/frog-delivery/**"
+    - "tasks/APP-1.TaskContract.yaml"
+    - "tasks/APP-2.TaskContract.yaml"
+    - "tasks/APP-3.TaskContract.yaml"
+  doneWhen:
+    - specs/epics/frog-delivery/README.md exists with status table, read order and milestone table
+    - docs/epics/frog-delivery/design.md exists with resource model, API routes, console surfaces, and out-of-scope list
+    - specs/epics/frog-delivery/implementation-plan.md exists with done-when per milestone
+    - specs/epics/frog-delivery/risks-and-open-questions.md exists with risks and decisions
+    - specs/epics/frog-delivery/IMPLEMENTATION-STATUS.md exists with a row per milestone, all not started
+    - tasks/APP-1.TaskContract.yaml, tasks/APP-2.TaskContract.yaml, tasks/APP-3.TaskContract.yaml exist
+    - Each of the five docs is attached with orun spec push
+  gates: []

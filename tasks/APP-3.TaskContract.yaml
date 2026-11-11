@@ -1,0 +1,16 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+spec:
+  goal: A protected admin area to manage orders and the frog catalogue.
+  affects:
+    - "apps/frogs-worker/**"
+    - "apps/api-edge/src/**"
+    - "apps/web-console-next/src/**"
+    - "packages/contracts/src/**"
+    - "tasks/APP-3.TaskContract.yaml"
+  doneWhen:
+    - A password-protected admin page lists all orders with their status
+    - An admin can mark an order as "in transit" or "delivered"
+    - An admin can add a new frog to the catalogue with name, species, size and location
+    - An admin can edit or remove a frog from the catalogue
+  gates: []

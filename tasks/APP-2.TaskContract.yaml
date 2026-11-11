@@ -1,0 +1,18 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+spec:
+  goal: A public page lists frogs available for delivery, and anyone can place an order.
+  affects:
+    - "apps/frogs-worker/**"
+    - "apps/api-edge/src/**"
+    - "apps/web-console-next/src/**"
+    - "packages/contracts/src/**"
+    - "packages/db/src/migrations/**"
+    - "packages/db/src/repositories/**"
+    - "tasks/APP-2.TaskContract.yaml"
+  doneWhen:
+    - The home page lists frogs with name, species, size and location
+    - Clicking a frog shows its full details on a per-frog page
+    - A form on each frog page lets a visitor place an order with their name and contact info
+    - The order is saved and the visitor sees a confirmation
+  gates: []
