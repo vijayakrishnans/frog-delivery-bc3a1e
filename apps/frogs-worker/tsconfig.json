@@ -1,0 +1,12 @@
+{
+  "extends": "@saas/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "paths": {
+      "@saas/contracts/*": ["../../packages/contracts/src/*"],
+      "@saas/db/*": ["../../packages/db/src/*"]
+    }
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,6 @@
+{
+  "cloudflare-d1": {
+    "stage": { "databaseId": "frog-delivery-db-stage-fixture" },
+    "prod": { "databaseId": "frog-delivery-db-prod-fixture" }
+  }
+}

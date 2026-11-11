@@ -43,7 +43,8 @@
       "vars": {
         "ENVIRONMENT": "stage",
         "CONSOLE_CUSTOM_DOMAIN": "stage.frog-delivery-bc3a1e.example.com",
-        "SOLO_MODE": "true"
+        "SOLO_MODE": "true",
+        "FROG_ADMIN_PASSWORD": "change-me-in-secrets"
       },
       "d1_databases": [
         {
@@ -98,6 +99,10 @@
         {
           "binding": "INTEGRATIONS_WORKER",
           "service": "frog-delivery-bc3a1e-integrations-worker-stage"
+        },
+        {
+          "binding": "FROGS_WORKER",
+          "service": "frog-delivery-bc3a1e-frogs-worker-stage"
         }
       ],
       "durable_objects": {
@@ -113,7 +118,8 @@
       "vars": {
         "ENVIRONMENT": "prod",
         "CONSOLE_CUSTOM_DOMAIN": "prod.frog-delivery-bc3a1e.example.com",
-        "SOLO_MODE": "true"
+        "SOLO_MODE": "true",
+        "FROG_ADMIN_PASSWORD": "change-me-in-secrets"
       },
       "d1_databases": [
         {
@@ -168,6 +174,10 @@
         {
           "binding": "INTEGRATIONS_WORKER",
           "service": "frog-delivery-bc3a1e-integrations-worker-prod"
+        },
+        {
+          "binding": "FROGS_WORKER",
+          "service": "frog-delivery-bc3a1e-frogs-worker-prod"
         }
       ],
       "durable_objects": {

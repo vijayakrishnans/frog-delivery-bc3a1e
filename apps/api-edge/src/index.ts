@@ -20,6 +20,7 @@ import {
   handleIntegrationsIngressRoute,
 } from "./integrations-facade";
 import { isSoloMode, isSoloSuppressed } from "./solo-mode";
+import { isFrogsRoute, handleFrogsRoute } from "./frogs-facade";
 
 // Durable Object class backing the PERF5 Stage B rate-limit counters. Must be
 // exported from the Worker entry so the runtime can instantiate it for the
@@ -68,6 +69,8 @@ export default {
       response = await handleMeteringRoute(request, env, requestId, url.pathname);
     } else if (isBillingRoute(url.pathname)) {
       response = await handleBillingRoute(request, env, requestId, url.pathname);
+    } else if (isFrogsRoute(url.pathname)) {
+      response = await handleFrogsRoute(request, env, requestId, url.pathname);
     } else if (isProjectRoute(url.pathname)) {
       response = await handleProjectRoute(request, env, requestId, url.pathname);
     } else if (isOrgRoute(url.pathname)) {
