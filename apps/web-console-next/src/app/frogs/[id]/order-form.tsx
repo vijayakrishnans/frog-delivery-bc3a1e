@@ -69,7 +69,7 @@ export function OrderForm({ frogId, frogName }: OrderFormProps) {
           </p>
         )}
         <a
-          href="/frogs"
+          href="/"
           className="mt-6 inline-block text-sm text-primary hover:underline"
         >
           &larr; Back to catalogue

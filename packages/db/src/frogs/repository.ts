@@ -51,7 +51,7 @@ export function createFrogsRepository(db: SqlExecutor) {
     const result = await db.execute(
       "SELECT id, name, species, size, location, created_at, updated_at FROM frogs ORDER BY created_at DESC, id DESC",
     );
-    return result.rows as FrogRow[];
+    return result.rows as unknown as FrogRow[];
   }
 
   async function getFrog(id: string): Promise<FrogRow | null> {
@@ -59,7 +59,7 @@ export function createFrogsRepository(db: SqlExecutor) {
       "SELECT id, name, species, size, location, created_at, updated_at FROM frogs WHERE id = ?",
       [id],
     );
-    return (result.rows[0] as FrogRow) ?? null;
+    return (result.rows[0] as unknown as FrogRow) ?? null;
   }
 
   async function createFrog(input: CreateFrogInput): Promise<FrogRow> {
@@ -70,7 +70,7 @@ export function createFrogsRepository(db: SqlExecutor) {
     return (await db.execute(
       "SELECT id, name, species, size, location, created_at, updated_at FROM frogs WHERE id = ?",
       [input.id],
-    )).rows[0] as FrogRow;
+    )).rows[0] as unknown as FrogRow;
   }
 
   async function updateFrog(id: string, input: UpdateFrogInput): Promise<FrogRow | null> {
@@ -100,7 +100,7 @@ export function createFrogsRepository(db: SqlExecutor) {
     const result = await db.execute(
       "SELECT id, frog_id, customer_name, contact_info, status, created_at, updated_at FROM orders ORDER BY created_at DESC, id DESC",
     );
-    return result.rows as OrderRow[];
+    return result.rows as unknown as OrderRow[];
   }
 
   async function getOrder(id: string): Promise<OrderRow | null> {
@@ -108,7 +108,7 @@ export function createFrogsRepository(db: SqlExecutor) {
       "SELECT id, frog_id, customer_name, contact_info, status, created_at, updated_at FROM orders WHERE id = ?",
       [id],
     );
-    return (result.rows[0] as OrderRow) ?? null;
+    return (result.rows[0] as unknown as OrderRow) ?? null;
   }
 
   async function createOrder(input: CreateOrderInput): Promise<OrderRow> {
@@ -119,7 +119,7 @@ export function createFrogsRepository(db: SqlExecutor) {
     return (await db.execute(
       "SELECT id, frog_id, customer_name, contact_info, status, created_at, updated_at FROM orders WHERE id = ?",
       [input.id],
-    )).rows[0] as OrderRow;
+    )).rows[0] as unknown as OrderRow;
   }
 
   async function updateOrderStatus(id: string, status: "in_transit" | "delivered"): Promise<OrderRow | null> {

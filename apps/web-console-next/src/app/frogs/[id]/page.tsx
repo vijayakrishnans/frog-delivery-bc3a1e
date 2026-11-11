@@ -26,7 +26,7 @@ export default async function FrogDetailPage({ params }: { params: Promise<{ id:
           <p className="text-muted-foreground mt-2">
             The frog you are looking for does not exist or has been removed.
           </p>
-          <a href="/frogs" className="mt-6 inline-block text-sm text-primary hover:underline">
+          <a href="/" className="mt-6 inline-block text-sm text-primary hover:underline">
             &larr; Back to catalogue
           </a>
         </main>
@@ -38,7 +38,7 @@ export default async function FrogDetailPage({ params }: { params: Promise<{ id:
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
         <div className="max-w-3xl mx-auto px-6 py-6">
-          <a href="/frogs" className="text-sm text-muted-foreground hover:text-foreground">
+          <a href="/" className="text-sm text-muted-foreground hover:text-foreground">
             &larr; Back to catalogue
           </a>
           <h1 className="text-3xl font-bold tracking-tight mt-2">{frog.name}</h1>

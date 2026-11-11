@@ -1,5 +1,5 @@
 import type { Env } from "./env.js";
-import { createD1Adapter } from "@saas/db/d1";
+import { createSqlExecutor } from "@saas/db/d1";
 import { createFrogsRepository } from "@saas/db/frogs";
 import { handleHealth } from "./handlers/health.js";
 import { handleListFrogs } from "./handlers/list-frogs.js";
@@ -36,7 +36,7 @@ export async function route(request: Request, env: Env): Promise<Response> {
     // Public: list frogs
     if (LIST_FROGS_RE.test(url.pathname)) {
       if (request.method !== "GET") return methodNotAllowedResponse(requestId);
-      const db = createD1Adapter(env.PLATFORM_DB!);
+      const db = createSqlExecutor(env.PLATFORM_DB!);
       const repo = createFrogsRepository(db);
       return handleListFrogs(repo, requestId);
     }
@@ -45,7 +45,7 @@ export async function route(request: Request, env: Env): Promise<Response> {
     const frogMatch = url.pathname.match(GET_FROG_RE);
     if (frogMatch) {
       if (request.method !== "GET") return methodNotAllowedResponse(requestId);
-      const db = createD1Adapter(env.PLATFORM_DB!);
+      const db = createSqlExecutor(env.PLATFORM_DB!);
       const repo = createFrogsRepository(db);
       return handleGetFrog(repo, frogMatch[1]!, requestId);
     }
@@ -53,7 +53,7 @@ export async function route(request: Request, env: Env): Promise<Response> {
     // Public: create order
     if (CREATE_ORDER_RE.test(url.pathname)) {
       if (request.method !== "POST") return methodNotAllowedResponse(requestId);
-      const db = createD1Adapter(env.PLATFORM_DB!);
+      const db = createSqlExecutor(env.PLATFORM_DB!);
       const repo = createFrogsRepository(db);
       return handleCreateOrder(repo, request, requestId);
     }
@@ -61,7 +61,7 @@ export async function route(request: Request, env: Env): Promise<Response> {
     // Admin: list orders
     if (ADMIN_LIST_ORDERS_RE.test(url.pathname)) {
       if (request.method !== "GET") return methodNotAllowedResponse(requestId);
-      const db = createD1Adapter(env.PLATFORM_DB!);
+      const db = createSqlExecutor(env.PLATFORM_DB!);
       const repo = createFrogsRepository(db);
       return handleAdminListOrders(repo, requestId);
     }
@@ -70,14 +70,14 @@ export async function route(request: Request, env: Env): Promise<Response> {
     const orderStatusMatch = url.pathname.match(ADMIN_UPDATE_ORDER_STATUS_RE);
     if (orderStatusMatch) {
       if (request.method !== "PATCH") return methodNotAllowedResponse(requestId);
-      const db = createD1Adapter(env.PLATFORM_DB!);
+      const db = createSqlExecutor(env.PLATFORM_DB!);
       const repo = createFrogsRepository(db);
       return handleAdminUpdateOrderStatus(repo, request, orderStatusMatch[1]!, requestId);
     }
 
     // Admin: create frog
     if (ADMIN_LIST_FROGS_RE.test(url.pathname) && request.method === "POST") {
-      const db = createD1Adapter(env.PLATFORM_DB!);
+      const db = createSqlExecutor(env.PLATFORM_DB!);
       const repo = createFrogsRepository(db);
       return handleAdminCreateFrog(repo, request, requestId);
     }
@@ -85,7 +85,7 @@ export async function route(request: Request, env: Env): Promise<Response> {
     // Admin: update/delete frog
     const frogItemMatch = url.pathname.match(ADMIN_FROG_ITEM_RE);
     if (frogItemMatch) {
-      const db = createD1Adapter(env.PLATFORM_DB!);
+      const db = createSqlExecutor(env.PLATFORM_DB!);
       const repo = createFrogsRepository(db);
       if (request.method === "PUT") {
         return handleAdminUpdateFrog(repo, request, frogItemMatch[1]!, requestId);

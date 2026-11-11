@@ -1,12 +1,5 @@
 {
-  "extends": "@saas/tsconfig",
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "paths": {
-      "@saas/contracts/*": ["../../packages/contracts/src/*"],
-      "@saas/db/*": ["../../packages/db/src/*"]
-    }
-  },
-  "include": ["src"]
+  "extends": "../../tooling/tsconfig/worker.json",
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -15,12 +15,13 @@ export async function handleAdminUpdateFrog(
     return errorResponse("bad_request", "Invalid JSON body", 400, requestId);
   }
 
-  const frog = await repo.updateFrog(id, {
-    name: body.name,
-    species: body.species,
-    size: body.size,
-    location: body.location,
-  });
+  const input: { name?: string; species?: string; size?: string; location?: string } = {};
+    if (body.name !== undefined) input.name = body.name;
+    if (body.species !== undefined) input.species = body.species;
+    if (body.size !== undefined) input.size = body.size;
+    if (body.location !== undefined) input.location = body.location;
+
+    const frog = await repo.updateFrog(id, input);
 
   if (!frog) {
     return errorResponse("not_found", "Frog not found", 404, requestId);
